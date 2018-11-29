@@ -74,6 +74,19 @@ function random_bg_color() {
   document.body.style.background = bgColor;
 }
 
+/**
+  The `quoteAutoRefresh` triggers the printQuote function automatically every 3 seconds.
+  The `timeoutInactivity` activate the `quoteAutoRefresh` after 30 seconds of page refresh. 
+**/
+
+function quoteAutoRefresh () {
+  intervalID = window.setInterval(printQuote, 3000);
+}
+
+function timeoutInactivity () {
+  timeoutID = window.setTimeout(quoteAutoRefresh, 30000);
+}
+timeoutInactivity();
 
 
 /***
@@ -103,20 +116,6 @@ function printQuote() {
   return quoteHTML;
 }
 
-
-function quoteAutoRefresh () {
-  intervalID = window.setInterval(printQuote, 3000);
-}
-
-function timeoutInactivity () {
-   timeoutID = window.setTimeout(quoteAutoRefresh, 20000);
- }
-timeoutInactivity();
-
-// function clrInterval() {
-//   clearTimeout(timeoutID);
-//   clearInterval(intervalID);
-// }
 
 /***
   When the "Show another quote" button is clicked, the event listener 
