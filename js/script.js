@@ -2,7 +2,7 @@
 A Random Quote Generator
 ******************************************/
 
-
+var intervalID, timeoutID;
 
 
 /*** 
@@ -13,7 +13,8 @@ const quotes = [
     quote: "The people who are crazy enough to think they can change the world are the ones who do.",
     source: "Steve Jobs",
     year: 1997,
-    citation: "Apple's 1997 Think Different campaign"
+    citation: "Apple's 1997 Think Different campaign",
+    category: "Business"
   },
   {
     quote: "You know you’re in love when you can’t fall asleep because reality is finally better than your dreams.",
@@ -24,7 +25,8 @@ const quotes = [
   {
     quote: "It Doesn’t Matter Where You Came From. All That Matters Is Where You Are Going.",
     source: "Brian Tracy",
-    year: 2018
+    year: 2018,
+    category: "Inspirational"
   },
   {
     quote: "You can avoid reality, but you cannot avoid the consequences of avoiding reality.",
@@ -49,13 +51,27 @@ const quotes = [
 
 
 /***
-  The `getRandomQuote` function will:
+  The `getRandomQuote` function:
    - generate a random number 
 ***/
 function getRandomQuote(arr) {
   quote = quotes[Math.floor( Math.random() * quotes.length)];
   quote[arr];
   return quote;
+}
+
+/***
+  The `random_bg_color` function:
+   - generate a random background color
+***/
+function random_bg_color() {
+  var x = Math.floor(Math.random() * 256);
+  var y = Math.floor(Math.random() * 256);
+  var z = Math.floor(Math.random() * 256);
+  var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+  console.log(bgColor);
+
+  document.body.style.background = bgColor;
 }
 
 
@@ -69,6 +85,7 @@ function getRandomQuote(arr) {
 ***/
 function printQuote() {
   var randomQuote = getRandomQuote();
+  random_bg_color();
   var quoteHTML = `
         <p class="quote">${randomQuote.quote}</p>
         <p class="source">${randomQuote.source}`;
@@ -78,12 +95,28 @@ function printQuote() {
         if (randomQuote.year) {  
           quoteHTML += `<span class="year"> ${randomQuote.year} </span>`;
         }
+        if (randomQuote.category) {  
+          quoteHTML += `<br><span class="category"> ${randomQuote.category} </span>`;
+        }
   quoteHTML += `</p>`;
   document.getElementById('quote-box').innerHTML = quoteHTML;
   return quoteHTML;
 }
 
 
+function quoteAutoRefresh () {
+  intervalID = window.setInterval(printQuote, 3000);
+}
+
+function timeoutInactivity () {
+   timeoutID = window.setTimeout(quoteAutoRefresh, 20000);
+ }
+timeoutInactivity();
+
+// function clrInterval() {
+//   clearTimeout(timeoutID);
+//   clearInterval(intervalID);
+// }
 
 /***
   When the "Show another quote" button is clicked, the event listener 
@@ -92,4 +125,10 @@ function printQuote() {
 ***/
 
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+
+
+
+
+
+
 
