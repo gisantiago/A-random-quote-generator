@@ -129,12 +129,13 @@ function printQuote() {
 /***
   When the "Show another quote" button is clicked, the event listener 
   below will be triggered, and it will call, or "invoke", the `printQuote` 
-  function, as well as the `myStopFunction`. 
+  function, as well as the `myStopFunction`. It also restart the timeoutInactivity function. 
 ***/
 
 document.getElementById('loadQuote').addEventListener("click", function () {
   printQuote();
   myStopFunction();
+  timeoutInactivity();
 }, false);
 
 
