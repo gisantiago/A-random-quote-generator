@@ -84,9 +84,18 @@ function quoteAutoRefresh () {
 }
 
 function timeoutInactivity () {
-  timeoutID = window.setTimeout(quoteAutoRefresh, 30000);
+  timeoutID = window.setTimeout(quoteAutoRefresh, 10000);
 }
 timeoutInactivity();
+
+/**
+ * the `myStopFunction` clears the timer set with the `timeoutInactivity` and `quoteAutoRefresh` functions.
+**/
+
+function myStopFunction() {
+  clearInterval(intervalID);
+  clearTimeout(timeoutID);
+}
 
 
 /***
@@ -120,10 +129,13 @@ function printQuote() {
 /***
   When the "Show another quote" button is clicked, the event listener 
   below will be triggered, and it will call, or "invoke", the `printQuote` 
-  function. 
+  function, as well as the `myStopFunction`. 
 ***/
 
-document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+document.getElementById('loadQuote').addEventListener("click", function () {
+  printQuote();
+  myStopFunction();
+}, false);
 
 
 
